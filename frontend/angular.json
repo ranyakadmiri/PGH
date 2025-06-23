@@ -1,0 +1,129 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "frontend-PGH": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/frontend-pgh",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+           "styles": [
+  "src/styles.css",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "src/assets/css/bootstrap.min.css",
+  "src/assets/css/style.css",
+  "src/assets/lib/animate/animate.css",
+  "src/assets/lib/animate/animate.min.css",
+  "src/assets/lib/owlcarousel/assets/owl.carousel.css",
+  "src/assets/lib/owlcarousel/assets/owl.carousel.min.css",
+  "src/assets/lib/owlcarousel/assets/owl.theme.default.css",
+  "src/assets/lib/owlcarousel/assets/owl.theme.default.min.css",
+  "src/assets/lib/owlcarousel/assets/owl.theme.green.css",
+  "src/assets/lib/owlcarousel/assets/owl.theme.green.min.css",
+  "node_modules/animate.css/animate.css",
+   "node_modules/aos/dist/aos.css"
+],
+"scripts": [
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+  "src/assets/js/main.js",
+  "src/assets/lib/counterup/counterup.min.js",
+  "src/assets/lib/easing/easing.js",
+  "src/assets/lib/easing/easing.min.js",
+  "src/assets/lib/owlcarousel/owl.carousel.js",
+  "src/assets/lib/owlcarousel/owl.carousel.min.js",
+  "src/assets/lib/wow/wow.js",
+  "src/assets/lib/wow/wow.min.js",
+   "node_modules/wowjs/dist/wow.js",
+    "node_modules/jquery/dist/jquery.min.js",
+      "node_modules/wowjs/dist/wow.min.js"
+    
+]
+
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "frontend-PGH:build:production"
+            },
+            "development": {
+              "browserTarget": "frontend-PGH:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "frontend-PGH:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "038a787c-22e5-4274-aae8-84daa95c192a"
+  }
+}

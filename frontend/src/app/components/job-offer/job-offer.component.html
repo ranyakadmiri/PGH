@@ -1,0 +1,34 @@
+<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="container py-5">
+    <div class="row g-5">
+      <div
+        *ngFor="let job of jobOffers"
+        class="col-md-6 wow slideInUp"
+        data-wow-delay="0.1s"
+      >
+        <div class="blog-item bg-light rounded overflow-hidden">
+          <div class="blog-img position-relative overflow-hidden">
+            <img
+              class="img-fluid"
+              [src]="'img/default-job.jpg'"
+              alt="{{ job.title }}"
+            />
+          </div>
+          <div class="p-4">
+            <div class="d-flex mb-3">
+              <small
+                ><i class="far fa-calendar-alt text-primary me-2"></i
+                >{{ job.postedDate | date }}</small
+              >
+            </div>
+            <h4 class="mb-3">{{ job.title }}</h4>
+            <p>{{ job.description | slice : 0 : 100 }}...</p>
+            <a class="text-uppercase" href="#"
+              >Read More <i class="bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
