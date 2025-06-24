@@ -7,5 +7,6 @@ export interface JobOffer {
   company: string;
   location: string;
   postedDate: Date | string;
+  requirements: string;
   // Add other attributes based on your backend entity
 }

@@ -10,6 +10,9 @@ import tn.esprit.examen.nomPrenomClasseExamen.entities.User;
 import tn.esprit.examen.nomPrenomClasseExamen.security.JwtUtils;
 import tn.esprit.examen.nomPrenomClasseExamen.services.UserService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -29,7 +32,11 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
             );
             String token = jwtUtils.generateToken(user.getEmail());
-            return ResponseEntity.ok(token);
+            Map<String, String> response = new HashMap<>();
+            return ResponseEntity.ok(Map.of(
+                    "token", token,
+                    "email", user.getEmail()
+            ));
         } catch (AuthenticationException e) {
             return ResponseEntity.status(401).body("Invalid credentials");
         }

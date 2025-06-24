@@ -123,11 +123,16 @@
                 href="#"
                 class="nav-link dropdown-toggle"
                 data-bs-toggle="dropdown"
-                >Blog</a
+                >Jobs</a
               >
               <div class="dropdown-menu m-0">
-                <a href="blog.html" class="dropdown-item">Blog</a>
-                <a href="detail.html" class="dropdown-item">Article</a>
+                <a *ngIf="!email" routerLink="/login" class="dropdown-item"
+                  >JobOffers</a
+                >
+                <a *ngIf="email" routerLink="/jobs" class="dropdown-item"
+                  >JobOffers</a
+                >
+                <a href="detail.html" class="dropdown-item">Applications</a>
               </div>
             </div>
             <div class="nav-item dropdown">
@@ -161,6 +166,7 @@
           <div class="user-info" style="color: antiquewhite">
             <p *ngIf="email">Bienvenue, {{ email }}</p>
             <p *ngIf="!email">Vous n'êtes pas connecté.</p>
+            <a *ngIf="!email" routerLink="/login">Login</a>
           </div>
         </div>
       </nav>
@@ -268,7 +274,7 @@
 
     <ng-template #loggedOut>
       <p>You are not logged in.</p>
-      <a routerLink="/">Login</a>
+      <a routerLink="/login">Login</a>
     </ng-template>
 
     <div

@@ -23,9 +23,9 @@
             </div>
             <h4 class="mb-3">{{ job.title }}</h4>
             <p>{{ job.description | slice : 0 : 100 }}...</p>
-            <a class="text-uppercase" href="#"
-              >Read More <i class="bi bi-arrow-right"></i
-            ></a>
+            <a class="text-uppercase" [routerLink]="['/jobs', job.id]">
+              Read More <i class="bi bi-arrow-right"></i>
+            </a>
           </div>
         </div>
       </div>

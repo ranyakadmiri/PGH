@@ -1,0 +1,157 @@
+<!-- Full Screen Search Start -->
+<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="container py-5">
+    <div class="row g-5">
+      <div class="col-lg-8">
+        <!-- Job Offer Detail Start -->
+        <div class="mb-5">
+          <img
+            class="img-fluid w-100 rounded mb-5"
+            [src]="'img/default-job.jpg'"
+            alt="{{ jobOffer?.title }}"
+          />
+          <h1 class="mb-4">{{ jobOffer?.title }}</h1>
+          <small class="text-muted"
+            ><i class="far fa-calendar-alt"></i>
+            {{ jobOffer?.postedDate | date }}</small
+          >
+          <p class="mt-4">{{ jobOffer?.description }}</p>
+          <p class="mt-4"><strong>Requirements:</strong> {{ jobOffer?.requirements }}</p>
+        </div>
+        <!-- Job Offer Detail End -->
+
+        <!-- Comments Section -->
+        <div class="mb-5">
+          <div class="section-title section-title-sm position-relative pb-3 mb-4">
+            <h3 class="mb-0">Comments</h3>
+          </div>
+          <!-- Example comment -->
+          <div class="d-flex mb-4">
+            <img
+              src="img/user.jpg"
+              class="img-fluid rounded"
+              style="width: 45px; height: 45px;"
+              alt="User"
+            />
+            <div class="ps-3">
+              <h6>
+                <a href="">John Doe</a>
+                <small><i>01 Jan 2045</i></small>
+              </h6>
+              <p>
+                Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua.
+              </p>
+              <button class="btn btn-sm btn-light">Reply</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leave a Comment Section -->
+        <div class="bg-light rounded p-5">
+          <div class="section-title section-title-sm position-relative pb-3 mb-4">
+            <h3 class="mb-0">Leave A Comment</h3>
+          </div>
+          <form>
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <input
+                  type="text"
+                  class="form-control bg-white border-0"
+                  placeholder="Your Name"
+                  style="height: 55px;"
+                />
+              </div>
+              <div class="col-12 col-sm-6">
+                <input
+                  type="email"
+                  class="form-control bg-white border-0"
+                  placeholder="Your Email"
+                  style="height: 55px;"
+                />
+              </div>
+              <div class="col-12">
+                <textarea
+                  class="form-control bg-white border-0"
+                  rows="5"
+                  placeholder="Comment"
+                ></textarea>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary w-100 py-3" type="submit">
+                  Leave Your Comment
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Sidebar Start -->
+      <div class="col-lg-4">
+        <!-- Search Form Start -->
+        <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+          <div class="input-group">
+            <input type="text" class="form-control p-3" placeholder="Keyword" />
+            <button class="btn btn-primary px-4">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Search Form End -->
+
+        <!-- Categories Section -->
+        <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+          <div class="section-title section-title-sm position-relative pb-3 mb-4">
+            <h3 class="mb-0">Categories</h3>
+          </div>
+          <div class="link-animated d-flex flex-column justify-content-start">
+            <a
+              class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+              href="#"
+              ><i class="bi bi-arrow-right me-2"></i>Web Design</a
+            >
+            <a
+              class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+              href="#"
+              ><i class="bi bi-arrow-right me-2"></i>Web Development</a
+            >
+            <a
+              class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+              href="#"
+              ><i class="bi bi-arrow-right me-2"></i>Email Marketing</a
+            >
+          </div>
+        </div>
+        <!-- Categories Section End -->
+
+        <!-- Recent Posts Section -->
+        <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+          <div class="section-title section-title-sm position-relative pb-3 mb-4">
+            <h3 class="mb-0">Recent Posts</h3>
+          </div>
+          <div class="d-flex rounded overflow-hidden mb-3">
+            <img
+              class="img-fluid"
+              src="img/blog-1.jpg"
+              style="width: 100px; height: 100px; object-fit: cover;"
+              alt=""
+            />
+            <a
+              href="#"
+              class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0"
+              >Lorem ipsum dolor sit amet adipis elit</a
+            >
+          </div>
+        </div>
+        <!-- Recent Posts Section End -->
+
+        <!-- Image Section -->
+        <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+          <img src="img/blog-1.jpg" alt="" class="img-fluid rounded" />
+        </div>
+      </div>
+      <!-- Sidebar End -->
+    </div>
+  </div>
+</div>
+<!-- Blog End -->

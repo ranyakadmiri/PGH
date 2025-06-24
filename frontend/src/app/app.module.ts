@@ -11,6 +11,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JobOfferComponent } from './components/job-offer/job-offer.component';
+import { JobOfferDetailComponent } from './components/job-offer-detail/job-offer-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { JobOfferComponent } from './components/job-offer/job-offer.component';
     HomeComponent,
     LoginComponent,
     JobOfferComponent,
+    JobOfferDetailComponent,
   ],
   imports: [
     BrowserModule,

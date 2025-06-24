@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(credentials).subscribe({
       next: (response) => {
         this.authService.setToken(response.token);
-        this.router.navigate(['/home']); // Redirige après connexion réussie
+        this.router.navigate(['/']); // Redirige après connexion réussie
       },
       error: (error) => {
         this.errorMessage = "Adresse e-mail ou mot de passe invalide.";
