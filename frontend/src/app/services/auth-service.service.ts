@@ -32,6 +32,11 @@ export class AuthServiceService {
     return localStorage.getItem('email');
   }
 
+
+getUserIdByEmail(email: string): Observable<number> {
+  return this.http.get<number>(`http://localhost:8089/PGH/api/auth/GetUserIdByEmail?email=${email}`);
+}
+
   // Stocker le token JWT
   setToken(token: string): void {
     localStorage.setItem('authToken', token);

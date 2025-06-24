@@ -24,7 +24,11 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-
+    @GetMapping("/GetUserIdByEmail")
+    public ResponseEntity<Long> getUserIdByEmail(@RequestParam String email) {
+        Long userId = userService.findUserIdByEmail(email);
+        return userId != null ? ResponseEntity.ok(userId) : ResponseEntity.notFound().build();
+    }
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         try {

@@ -14,4 +14,9 @@ public class UserService {
     public User createUser(User user) {
         return userRepository.save(user);
     }
+    public Long findUserIdByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(user -> user.getId())
+                .orElse(null); // Returns null if no user is found
+    }
 }
