@@ -24,6 +24,7 @@ public class JobOffer {
     private String requirements;
     private String location;
     private LocalDate postedDate;
+    private String imagePath;
     private boolean status;
 
 }

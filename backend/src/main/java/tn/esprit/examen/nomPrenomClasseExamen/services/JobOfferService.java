@@ -28,6 +28,7 @@ public class JobOfferService {
         return jobOfferRepository.save(jobOffer);
     }
 
+
     public JobOffer updateJobOffer(Long id, JobOffer jobOfferDetails) {
         JobOffer jobOffer = jobOfferRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("JobOffer not found with id " + id));

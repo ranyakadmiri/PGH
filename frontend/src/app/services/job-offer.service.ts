@@ -37,6 +37,15 @@ export class JobOfferService {
   });
   return this.http.get<JobOffer>(`${this.apiUrl}/GetJobOfferByid/${id}`, { headers });
 }
-
+createJobOffer(formData: FormData): Observable<JobOffer> {
+   const token = this.authService.getToken();
+  if (!token) {
+    throw new Error('No token found');
+  }
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<JobOffer>(`${this.apiUrl}/CreateJobOffer`, formData, { headers });
+  }
   
 }

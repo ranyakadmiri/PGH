@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApplicationCreateDTO } from 'src/app/models/ApplicatioCreateDTO.dto';
 import { Application } from 'src/app/models/application.model';
 import { JobOffer } from 'src/app/models/job-offer.model';
 import { ApplicationService } from 'src/app/services/application.service';
@@ -73,22 +74,32 @@ onFileSelected(event: any): void {
   }
 }
 
+
 onSubmit(): void {
-  console.log('Submitting application:', this.application);
   if (this.selectedFile) {
-    this.applicationService.createApplication(this.application).subscribe(
-      (response) => {
+    const applicationToSend: ApplicationCreateDTO = {
+      applicationDate: this.application.applicationDate,
+      cvPath: this.application.cvPath
+    };
+
+    this.applicationService.uploadApplication(
+      this.application.jobOfferId!,   // Non-null assertion because you set it before
+      this.application.userId!,       // Same here
+      applicationToSend,
+      this.selectedFile
+    ).subscribe(
+      response => {
         console.log('Application submitted successfully:', response);
         alert('Application submitted successfully!');
       },
-      (error) => {
+      error => {
         console.error('Error submitting application:', error);
         alert('Failed to submit application.');
       }
     );
   } else {
-    console.warn('No CV file selected.');
     alert('Please upload a CV before submitting.');
   }
 }
+
 }
