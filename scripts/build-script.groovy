@@ -1,6 +1,5 @@
 def FRONTEND_DIR = 'frontend'
 def BACKEND_DIR = 'backend'
-def MAVEN_HOME = '/usr/share/maven'
 
 def runCommand(String command, String dir = '.') {
     println "Running: ${command} in ${dir}"
@@ -13,33 +12,28 @@ def runCommand(String command, String dir = '.') {
     }
 }
 
-// Wrap all steps in try-catch-finally
 try {
     println "Installing frontend dependencies..."
     runCommand('npm install', FRONTEND_DIR)
-
-    println "Installing backend dependencies..."
-    runCommand("${MAVEN_HOME}/bin/mvn dependency:resolve", BACKEND_DIR)
-
+    
     println "Building frontend..."
     runCommand('npm run build', FRONTEND_DIR)
-
-    println "Building backend..."
-    runCommand("${MAVEN_HOME}/bin/mvn clean package", BACKEND_DIR)
-
-    println "Archiving artifacts..."
-    // Archiving logic depends on your environment
-    // Here just print paths that you would archive
-    println "Archive backend jars from: ${BACKEND_DIR}/target/*.jar"
-    println "Archive frontend dist files from: ${FRONTEND_DIR}/dist/"
-
-    println "Deployment stage (optional)..."
-    // Add deployment commands here if needed
-
+    
+    println "Building backend with Docker (Java 17)..."
+    runCommand('docker build -t nomprenomlasseexamen-backend .', BACKEND_DIR)
+    
+    // Extract JAR from container
+    runCommand('docker create --name temp-extract nomprenomlasseexamen-backend', BACKEND_DIR)
+    runCommand('docker cp temp-extract:/app/target/. ./target/', BACKEND_DIR)
+    runCommand('docker rm temp-extract', BACKEND_DIR)
+    
+    println "Build completed successfully!"
+    println "Backend JAR: ${BACKEND_DIR}/target/*.jar"
+    println "Frontend dist: ${FRONTEND_DIR}/dist/"
+    
 } catch (Exception e) {
     println "Build failed: ${e.message}"
     System.exit(1)
 } finally {
-    println "Cleaning up workspace..."
-    // Add any cleanup commands here, like deleting temporary files if needed
+    println "Cleaning up..."
 }
