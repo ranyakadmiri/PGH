@@ -1,54 +1,45 @@
-node {
-    def FRONTEND_DIR = 'frontend' // Directory of your frontend application
-    def BACKEND_DIR = 'backend'  // Directory of your backend application
-    def MAVEN_HOME = '/usr/share/maven' // Path to Maven installation (adjust if necessary)
+def FRONTEND_DIR = 'frontend'
+def BACKEND_DIR = 'backend'
+def MAVEN_HOME = '/usr/share/maven'
 
-    try {
-        stage('Install Dependencies') {
-            parallel(
-                'Frontend Dependencies': {
-                    dir(FRONTEND_DIR) {
-                        sh 'npm install' // Use 'yarn install' if using Yarn
-                    }
-                },
-                'Backend Dependencies': {
-                    dir(BACKEND_DIR) {
-                        sh "${MAVEN_HOME}/bin/mvn dependency:resolve"
-                    }
-                }
-            )
-        }
-
-        stage('Build Applications') {
-            parallel(
-                'Build Frontend': {
-                    dir(FRONTEND_DIR) {
-                        sh 'npm run build' // Use 'ng build --prod' if Angular CLI
-                    }
-                },
-                'Build Backend': {
-                    dir(BACKEND_DIR) {
-                        sh "${MAVEN_HOME}/bin/mvn clean package"
-                    }
-                }
-            )
-        }
-
-        stage('Archive Artifacts') {
-            archiveArtifacts artifacts: "${BACKEND_DIR}/target/*.jar", fingerprint: true
-            archiveArtifacts artifacts: "${FRONTEND_DIR}/dist/**", fingerprint: true
-        }
-
-        stage('Deploy (Optional)') {
-            echo 'Deployment stage would go here.'
-            // Add deployment steps here if needed
-        }
-
-    } catch (Exception e) {
-        echo "Build failed: ${e.message}"
-        throw e
-    } finally {
-        echo 'Cleaning up workspace...'
-        cleanWs() // Cleans up the workspace
+def runCommand(String command, String dir = '.') {
+    println "Running: ${command} in ${dir}"
+    def proc = ["bash", "-c", "cd ${dir} && ${command}"].execute()
+    proc.in.eachLine { line -> println line }
+    proc.err.eachLine { line -> System.err.println line }
+    proc.waitFor()
+    if (proc.exitValue() != 0) {
+        throw new RuntimeException("Command failed: ${command} in ${dir}")
     }
+}
+
+// Wrap all steps in try-catch-finally
+try {
+    println "Installing frontend dependencies..."
+    runCommand('npm install', FRONTEND_DIR)
+
+    println "Installing backend dependencies..."
+    runCommand("${MAVEN_HOME}/bin/mvn dependency:resolve", BACKEND_DIR)
+
+    println "Building frontend..."
+    runCommand('npm run build', FRONTEND_DIR)
+
+    println "Building backend..."
+    runCommand("${MAVEN_HOME}/bin/mvn clean package", BACKEND_DIR)
+
+    println "Archiving artifacts..."
+    // Archiving logic depends on your environment
+    // Here just print paths that you would archive
+    println "Archive backend jars from: ${BACKEND_DIR}/target/*.jar"
+    println "Archive frontend dist files from: ${FRONTEND_DIR}/dist/"
+
+    println "Deployment stage (optional)..."
+    // Add deployment commands here if needed
+
+} catch (Exception e) {
+    println "Build failed: ${e.message}"
+    System.exit(1)
+} finally {
+    println "Cleaning up workspace..."
+    // Add any cleanup commands here, like deleting temporary files if needed
 }
