@@ -20,7 +20,7 @@ try {
     runCommand('npm run build', FRONTEND_DIR)
     
     println "Building backend with Docker (Java 17)..."
-    runCommand('sudo docker build -t nomprenomlasseexamen-backend .', BACKEND_DIR)
+    runCommand(' docker build -t nomprenomlasseexamen-backend .', BACKEND_DIR)
     
     // Extract JAR from container
     runCommand('docker create --name temp-extract nomprenomlasseexamen-backend', BACKEND_DIR)
