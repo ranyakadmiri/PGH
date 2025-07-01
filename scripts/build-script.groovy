@@ -23,6 +23,8 @@ try {
     runCommand(' docker build -t nomprenomlasseexamen-backend .', BACKEND_DIR)
     
     // Extract JAR from container
+    //remove existing container 
+    runCommand('docker rm -f temp-extract || true', BACKEND_DIR)
     runCommand('docker create --name temp-extract nomprenomlasseexamen-backend', BACKEND_DIR)
     runCommand('docker cp temp-extract:/app/target/. ./target/', BACKEND_DIR)
     runCommand('docker rm temp-extract', BACKEND_DIR)
