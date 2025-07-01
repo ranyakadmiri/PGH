@@ -42,4 +42,4 @@ try {
 } finally {
     println "Cleaning up workspace..."
     // Add any cleanup commands here, like deleting temporary files if needed
-} add it
+}
