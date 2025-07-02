@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nomprenomlasseexamen-frontend
+  labels:
+    app: nomprenomlasseexamen-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nomprenomlasseexamen-frontend
+  template:
+    metadata:
+      labels:
+        app: nomprenomlasseexamen-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: 192.168.220.151:5000/nomprenomlasseexamen-frontend:latest
+        ports:
+        - containerPort: 80
