@@ -1,3 +1,7 @@
+def NEXUS_REGISTRY = '192.168.220.151:5000'
+def IMAGE_NAME = 'nomprenomlasseexamen-backend'
+def IMAGE_TAG = "${NEXUS_REGISTRY}/${IMAGE_NAME}:latest"
+
 def FRONTEND_DIR = 'frontend'
 def BACKEND_DIR = 'backend'
 
@@ -20,17 +24,27 @@ try {
     runCommand('npm run build', FRONTEND_DIR)
     
     println "Building backend with Docker (Java 17)..."
-    runCommand(' docker build -t nomprenomlasseexamen-backend .', BACKEND_DIR)
+    runCommand("docker build -t ${IMAGE_NAME} .", BACKEND_DIR)
     
     // Extract JAR from container
-    //remove existing container 
     runCommand('docker rm -f temp-extract || true', BACKEND_DIR)
-    runCommand('docker create --name temp-extract nomprenomlasseexamen-backend', BACKEND_DIR)
+    runCommand("docker create --name temp-extract ${IMAGE_NAME}", BACKEND_DIR)
     runCommand('docker cp temp-extract:/app/app.jar ./target/', BACKEND_DIR)
-
-   runCommand('docker rm temp-extract', BACKEND_DIR)
+    runCommand('docker rm temp-extract', BACKEND_DIR)
     
-    println "Build completed successfully!"
+    // Tag the image with Nexus repo URL
+    println "Tagging backend image for Nexus registry..."
+    runCommand("docker tag ${IMAGE_NAME} ${IMAGE_TAG}")
+    
+    // Login to Nexus Docker registry (optional if no auth, else provide credentials)
+    println "Logging in to Nexus registry..."
+    runCommand("docker login ${NEXUS_REGISTRY} -u admin -p admin")
+    
+    // Push the image to Nexus
+    println "Pushing backend image to Nexus registry..."
+    runCommand("docker push ${IMAGE_TAG}")
+    
+    println "Build and push completed successfully!"
     println "Backend JAR: ${BACKEND_DIR}/target/*.jar"
     println "Frontend dist: ${FRONTEND_DIR}/dist/"
     
