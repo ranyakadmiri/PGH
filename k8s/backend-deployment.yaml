@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nomprenomlasseexamen-backend
+  labels:
+    app: nomprenomlasseexamen-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nomprenomlasseexamen-backend
+  template:
+    metadata:
+      labels:
+        app: nomprenomlasseexamen-backend
+    spec:
+      containers:
+      - name: backend
+        image: 192.168.220.151:5000/nomprenomlasseexamen-backend:latest
+        ports:
+        - containerPort: 8089
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://mysql-container:3306/PGH_db?createDatabaseIfNotExist=true
+          - name: SPRING_DATASOURCE_USERNAME
+            value: root
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: rootpassword
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8089
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8089
+          initialDelaySeconds: 30
+          periodSeconds: 30
