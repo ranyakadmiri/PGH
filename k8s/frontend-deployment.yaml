@@ -19,5 +19,6 @@ spec:
       containers:
       - name: frontend
         image: 192.168.220.151:5000/nomprenomlasseexamen-frontend:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
