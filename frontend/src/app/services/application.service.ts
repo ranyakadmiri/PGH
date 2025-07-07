@@ -10,7 +10,7 @@ import { ApplicationCreateDTO } from '../models/ApplicatioCreateDTO.dto';
 })
 export class ApplicationService {
 
- private apiUrl = 'http://localhost:8089/PGH/api/applications';
+ private apiUrl = 'http://192.168.49.2:30089/PGH/api/applications';
 
   constructor(private http: HttpClient,private authService:AuthServiceService) {}
 
