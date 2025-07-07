@@ -24,7 +24,7 @@ spec:
         - containerPort: 8089
         env:
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:mysql://mysql-container:3306/PGH_db?createDatabaseIfNotExist=true
+            value: jdbc:mysql://mysql:3306/PGH_db?createDatabaseIfNotExist=true
           - name: SPRING_DATASOURCE_USERNAME
             value: root
           - name: SPRING_DATASOURCE_PASSWORD
