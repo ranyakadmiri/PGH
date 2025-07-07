@@ -24,20 +24,39 @@ spec:
         - containerPort: 8089
         env:
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:mysql://mysql:3306/PGH_db?createDatabaseIfNotExist=true
+            value: jdbc:mysql://mysql:3306/PGH_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
           - name: SPRING_DATASOURCE_USERNAME
             value: root
           - name: SPRING_DATASOURCE_PASSWORD
             value: rootpassword
+          - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+            value: com.mysql.cj.jdbc.Driver
         readinessProbe:
           httpGet:
-            path: /actuator/health/readiness
+            path: /PGH/actuator/health/readiness
             port: 8089
-          initialDelaySeconds: 10
+          initialDelaySeconds: 60
           periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
         livenessProbe:
           httpGet:
-            path: /actuator/health/liveness
+            path: /PGH/actuator/health/liveness
             port: 8089
-          initialDelaySeconds: 30
+          initialDelaySeconds: 90
           periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        # Add init container to wait for MySQL
+      initContainers:
+      - name: wait-for-mysql
+        image: busybox:1.35
+        command: ['sh', '-c']
+        args:
+          - |
+            echo "Waiting for MySQL to be ready..."
+            until nc -z mysql 3306; do
+              echo "MySQL not ready, waiting..."
+              sleep 5
+            done
+            echo "MySQL is ready!"
