@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthServiceService {
-  private apiUrl = 'http://localhost:8089/PGH/api/auth';
+  private apiUrl = 'http://192.168.49.2:30089/PGH/api/auth';
   private emailSubject = new BehaviorSubject<string | null>(localStorage.getItem('email'));
   email$ = this.emailSubject.asObservable();
 
