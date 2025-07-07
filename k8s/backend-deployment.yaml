@@ -32,16 +32,14 @@ spec:
           - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
             value: com.mysql.cj.jdbc.Driver
         readinessProbe:
-          httpGet:
-            path: /PGH/actuator/health/readiness
+          tcpSocket:
             port: 8089
           initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 3
         livenessProbe:
-          httpGet:
-            path: /PGH/actuator/health/liveness
+          tcpSocket:
             port: 8089
           initialDelaySeconds: 90
           periodSeconds: 30
