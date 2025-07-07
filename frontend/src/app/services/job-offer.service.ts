@@ -12,7 +12,7 @@ import { AuthServiceService } from './auth-service.service';
 })
 export class JobOfferService {
 
- private apiUrl = 'http://localhost:8089/PGH/api/joboffers'; // Update to your actual backend URL
+ private apiUrl = 'http://192.168.49.2:30089/PGH/api/joboffers'; // Update to your actual backend URL
 
   constructor(private http: HttpClient, private authService:AuthServiceService) {}
  
