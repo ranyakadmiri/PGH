@@ -31,6 +31,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/joboffers/**").permitAll()// Replaces antMatchers
                         .requestMatchers("/api/applications/**").permitAll()
                         .requestMatchers("/api/images/**").permitAll()
+                        .requestMatchers("/actuator/health/**").permitAll()
+                        .requestMatchers("/actuator/info").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
