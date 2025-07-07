@@ -7,6 +7,6 @@ spec:
     app: nomprenomlasseexamen-backend
   ports:
     - protocol: TCP
-      port: 80
+      port: 8089
       targetPort: 8089
-  type: LoadBalancer
+  type: ClusterIP
