@@ -34,7 +34,7 @@ export class AuthServiceService {
 
 
 getUserIdByEmail(email: string): Observable<number> {
-  return this.http.get<number>(`http://localhost:8089/PGH/api/auth/GetUserIdByEmail?email=${email}`);
+  return this.http.get<number>(`http://192.168.49.2:30089/PGH/api/auth/GetUserIdByEmail?email=${email}`);
 }
 
   // Stocker le token JWT
