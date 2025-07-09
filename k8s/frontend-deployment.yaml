@@ -14,7 +14,8 @@ spec:
       labels:
         app: nomprenomlasseexamen-frontend
     spec:
-     
+      imagePullSecrets:
+      - name: dockerhub-secret 
       containers:
       - name: frontend
         image: ranya631/nomprenomlasseexamen-frontend:latest 
