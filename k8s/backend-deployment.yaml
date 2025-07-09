@@ -15,11 +15,11 @@ spec:
         app: nomprenomlasseexamen-backend
     spec:
       imagePullSecrets:
-        - name: nexus-creds
+        - name: dockerhub-secret
       containers:
       - name: backend
-        image: 192.168.220.151:5000/nomprenomlasseexamen-backend:latest
-        imagePullPolicy: IfNotPresent
+        image: ranya631/nomprenomlasseexamen-backend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8089
         env:
