@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             this.userDetailsService = userDetailsService;
         }
 
-        @Override
+      /*  @Override
         protected void doFilterInternal( @NonNull HttpServletRequest request,
                                          @NonNull HttpServletResponse response,
                                          @NonNull FilterChain filterChain) throws ServletException, IOException {
@@ -42,5 +42,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
             filterChain.doFilter(request, response);
+        }*/
+        @Override
+protected void doFilterInternal(@NonNull HttpServletRequest request,
+                                 @NonNull HttpServletResponse response,
+                                 @NonNull FilterChain filterChain) throws ServletException, IOException {
+
+    String path = request.getRequestURI();
+
+    // ✅ Bypass actuator and other public endpoints (e.g., Prometheus)
+    if (path.startsWith("/PGH/actuator")) {
+        filterChain.doFilter(request, response);
+        return;
+    }
+
+    String header = request.getHeader("Authorization");
+    if (header != null && header.startsWith("Bearer ")) {
+        String token = header.substring(7);
+        if (jwtUtils.isTokenValid(token)) {
+            String email = jwtUtils.extractUsername(token);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            SecurityContextHolder.getContext().setAuthentication(
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities())
+            );
         }
+    }
+
+    filterChain.doFilter(request, response);
+}
+
     }
