@@ -43,19 +43,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         }*/
-        @Override
+       @Override
 protected void doFilterInternal(@NonNull HttpServletRequest request,
                                  @NonNull HttpServletResponse response,
                                  @NonNull FilterChain filterChain) throws ServletException, IOException {
-
     String path = request.getRequestURI();
-
-    // ✅ Bypass actuator and other public endpoints (e.g., Prometheus)
-    if (path.startsWith("/PGH/actuator")) {
+    
+    // ✅ Debug: Log the actual path
+    System.out.println("Request URI: " + path);
+    System.out.println("Context Path: " + request.getContextPath());
+    System.out.println("Servlet Path: " + request.getServletPath());
+    
+    // ✅ Check for actuator endpoints (with or without context path)
+    if (path.contains("/actuator")) {
         filterChain.doFilter(request, response);
         return;
     }
-
+    
     String header = request.getHeader("Authorization");
     if (header != null && header.startsWith("Bearer ")) {
         String token = header.substring(7);
@@ -67,8 +71,6 @@ protected void doFilterInternal(@NonNull HttpServletRequest request,
             );
         }
     }
-
     filterChain.doFilter(request, response);
 }
-
     }
