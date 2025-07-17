@@ -45,7 +45,9 @@ try {
     println "Tagging backend image for Docker Hub..."
     runCommand("docker tag ${BACKEND_IMAGE_NAME} ${BACKEND_IMAGE_TAG}")
     println "Running Trivy scan on backend image..."
-runCommand("trivy image --timeout 15m --scanners vuln ${BACKEND_IMAGE_TAG}")
+runCommand("/usr/bin/trivy image --timeout 25m --scanners vuln --debug ${BACKEND_IMAGE_TAG}")
+    
+
 
     
     // Login to Docker Hub
